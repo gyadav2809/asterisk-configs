@@ -22,11 +22,6 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} "
                             set -e
 
-                            # Create backup
-                            BACKUP_DIR=${CONFIG_DIR}-backup-$(date +%F-%H%M)
-                            echo 'Backing up old configs to' $BACKUP_DIR
-                            sudo cp -r ${CONFIG_DIR} $BACKUP_DIR
-
                             # Deploy new configs
                             echo 'Deploying new configs...'
                             sudo rsync -avz --delete ./ ${CONFIG_DIR}/
